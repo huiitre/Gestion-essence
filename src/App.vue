@@ -1,21 +1,16 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
+  <login-view />
 </template>
 
 <script>
+import LoginView from '@/views/LoginView.vue'
 
 export default {
-  name: 'App'
+  name: 'App',
+  components: {
+    LoginView
+  }
 }
 </script>
 
-<style scoped lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+<style lang="scss" src="@/assets/css/main.scss"></style>
