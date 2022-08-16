@@ -7,11 +7,11 @@ export const successToast = (message) => {
     text: message,
     duration: 3000,
     close: true,
-    gravity: "bottom", // `top` or `bottom`
-    position: "right", // `left`, `center` or `right`
+    gravity: "top", // `top` or `bottom`
+    position: "center", // `left`, `center` or `right`
     stopOnFocus: true, // Prevents dismissing of toast on hover
     style: {
-      background: "#A84D61",
+      background: "#70A84D",
     },
     onClick: function(){}
   }).showToast();

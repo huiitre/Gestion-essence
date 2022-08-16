@@ -1,7 +1,7 @@
 <template>
 <label class="field__label" :for="inputId">{{ label }}</label>
 	<input
-		@keyup="handleChangeInput"
+		@change="handleChangeInput"
 		:id="inputId"
 		:type="inputType"
 		v-model="value"
