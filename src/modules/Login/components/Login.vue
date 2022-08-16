@@ -36,7 +36,8 @@
 
 <script>
 import Input from '@/modules/common/components/Input.vue'
-import LoginHooks from '../LoginHooks.js'
+// import LoginHooks from '../LoginHooks.js'
+import successToast from '@/modules/common/components/toasts.js'
 
 export default {
 	name: 'Login',
@@ -56,8 +57,9 @@ export default {
 			this.credentials[data.name] = data.value
 		},
 		handleSubmit() {
-			const response = LoginHooks.login(this.credentials)
-			console.log('response : ', response);
+			// const response = LoginHooks.login(this.credentials)
+			// console.log('response : ', response);
+			successToast('petit test');
 		}
 	}
 };
