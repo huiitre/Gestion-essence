@@ -1,5 +1,6 @@
 import axios from "axios";
-import { successToast } from '@/modules/common/components/toasts.js'
+import { clearToasts  } from 'mosha-vue-toastify'
+import { errorToast, spinnerToast, successToast } from '@/modules/common/components/toasts.js'
 
 const client = axios.create({
   baseURL: process.env.VUE_APP_ROOT_API,
@@ -11,11 +12,18 @@ const client = axios.create({
 
 export default {
   login: async (credentials) => {
+    spinnerToast('Connexion en cours ...');
     return await client.post('/login_check', credentials)
       .then ((res) => {
         console.log('res : ', res.data);
-        successToast('petit test');
+        successToast('Vous êtes connecté !');
 
       })
+      .catch((e) => {
+        errorToast(e.response.data.message);
+      })
+      .finally(() => {
+        clearToasts();
+      });
   }
 }

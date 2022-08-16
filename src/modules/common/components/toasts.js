@@ -1,45 +1,53 @@
-import Toastify from 'toastify-js';
-import "toastify-js/src/toastify.css";
+import { createToast } from 'mosha-vue-toastify';
+import 'mosha-vue-toastify/dist/style.css';
 
 export const successToast = (message) => {
-
-  Toastify({
-    text: message,
-    duration: 3000,
-    close: true,
-    gravity: "top", // `top` or `bottom`
-    position: "center", // `left`, `center` or `right`
-    stopOnFocus: true, // Prevents dismissing of toast on hover
-    style: {
-      background: "#70A84D",
-    },
-    onClick: function(){}
-  }).showToast();
-}
-export const errorToast = () => {
-
-  Toastify({
-    text: MessageChannel,
-    duration: 3000,
-    close: true,
-    gravity: "bottom"
-  }).showToast();
-}
-export const warnToast = () => {
-
-  Toastify({
-    text: MessageChannel,
-    duration: 3000,
-    close: true,
-    gravity: "bottom"
-  }).showToast();
-}
-export const infoToast = () => {
-
-  Toastify({
-    text: MessageChannel,
-    duration: 3000,
-    close: true,
-    gravity: "bottom"
-  }).showToast();
-}
+	createToast(message, {
+		hideProgressBar: 'false',
+		showIcon: 'true',
+		position: 'top-center',
+		type: 'success',
+		transition: 'bounce',
+    swipeClose: true
+	});
+};
+export const errorToast = (message) => {
+	createToast(message, {
+		hideProgressBar: 'false',
+		showIcon: 'true',
+		position: 'top-center',
+		type: 'danger',
+		transition: 'bounce',
+    swipeClose: true
+	});
+};
+export const warnToast = (message) => {
+	createToast(message, {
+		hideProgressBar: 'false',
+		showIcon: 'true',
+		position: 'top-center',
+		type: 'warning',
+		transition: 'bounce',
+    swipeClose: true
+	});
+};
+export const infoToast = (message) => {
+	createToast(message, {
+		hideProgressBar: 'false',
+		showIcon: 'true',
+		position: 'top-center',
+		type: 'info',
+		transition: 'bounce',
+    swipeClose: true
+	});
+};
+export const spinnerToast = (message) => {
+	createToast(message, {
+		hideProgressBar: 'false',
+		showIcon: 'true',
+		position: 'top-center',
+		type: 'info',
+		transition: 'bounce',
+    timeout: 'none'
+	});
+};
