@@ -12,11 +12,21 @@ const client = axios.create({
 
 export default {
   login: async (credentials) => {
+    //* On clear tous les autres toast et on affiche le toast loading
+    clearToasts();
     spinnerToast('Connexion en cours ...');
+
     return await client.post('/login_check', credentials)
       .then ((res) => {
-        console.log('res : ', res.data);
+        //* On affiche le toast success
         successToast('Vous êtes connecté !');
+
+        //* stockage du token en LS
+        //? est-ce qu'il y a un localstorage sous android ?
+        const { token } = res.data;
+        localStorage.setItem('token', token);
+
+        //TODO Mettre en place le store et stocker les infos de l'utilisateur dedans
 
       })
       .catch((e) => {
