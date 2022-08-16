@@ -1,16 +1,31 @@
+//? penser à refaire la gestion des deux inputs, en ajoutant un composant Input réutilisable partout (voir repo moving forward)
 <template>
 	<div class="login">
 		<h1 class="login__title">Gestion Essence</h1>
-		<form action="" class="login__form">
+		<form @submit.prevent="handleSubmit" class="login__form">
 			<div class="login__form__username">
-				<label for="username">Identifiant</label>
-				<input id="username" type="email" />
-        <span class="login__form__username-error hidden">Identifiant incorrect</span>
+				<Input
+					name="username"
+					label="Identifiant"
+					inputClass=""
+					inputType="text"
+					inputPlaceHolder="Identifiant"
+					inputId="username"
+					@onChangeValue="handleChangeInput"
+				/>
+				<span class="login__form__username-error hidden">Identifiant incorrect</span>
 			</div>
 			<div class="login__form__password">
-				<label for="password">Mot de passe</label>
-				<input id="password" type="password" />
-        <span class="login__form__password-error hidden">Mot de passe incorrect</span>
+				<Input
+					name="password"
+					label="Mot de passe"
+					inputClass=""
+					inputType="password"
+					inputPlaceHolder="Mot de passe"
+					inputId="password"
+					@onChangeValue="handleChangeInput"
+				/>
+				<span class="login__form__password-error hidden">Mot de passe incorrect</span>
 			</div>
 			<div class="login__form__submit">
 				<button type="submit" class="login__form__submit-button">Se connecter</button>
@@ -20,12 +35,35 @@
 </template>
 
 <script>
+import Input from '@/modules/common/components/Input.vue'
+import LoginHooks from '../LoginHooks.js'
+
 export default {
 	name: 'Login',
+	components: {
+		Input,
+	},
+	data() {
+		return {
+			credentials: {
+				username: '',
+				password: ''
+			}
+		}
+	},
+	methods: {
+		handleChangeInput(data) {
+			this.credentials[data.name] = data.value
+		},
+		handleSubmit() {
+			const response = LoginHooks.login(this.credentials)
+			console.log('response : ', response);
+		}
+	}
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 //* composant login
 .login {
 	height: 100%;
