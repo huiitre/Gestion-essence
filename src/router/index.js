@@ -7,9 +7,21 @@ const router = createRouter({
 		{
 			path: '/',
 			name: 'home',
-			component: () => import('@/components/LoginView.vue'),
+			// meta: { requireAuth: true},
+			component: () => import('@/views/HomeView.vue'),
+		},
+		{
+			path: '/login',
+			name: 'login',
+			// meta: { requireAuth: false },
+			component: () => import('@/views/LoginView.vue'),
 		},
 	],
 });
+
+/* router.beforeEach((to, from) => {
+	console.log('to : ', to);
+	console.log('from : ', from);
+}); */
 
 export default router;

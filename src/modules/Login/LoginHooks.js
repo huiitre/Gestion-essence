@@ -30,7 +30,10 @@ export default {
 
       })
       .catch((e) => {
-        console.log('error : ', e.response.data.message);
+        // console.log('error : ', e.response.data.message);
+        if (!e.response.data) {
+          errorToast('Une erreur est survenu, merci de réessayer ultérieurement');
+        }
         errorToast(e.response.data.message);
       })
       .finally(() => {

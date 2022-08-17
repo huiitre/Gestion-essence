@@ -1,15 +1,13 @@
 <template>
-  <login-view />
+<router-link to="/">lien 1</router-link>
+<router-link to="/login">lien 2</router-link>
+  <RouterView />
 </template>
 
 <script>
-import LoginView from '@/views/LoginView.vue'
 
 export default {
-  name: 'App',
-  components: {
-    LoginView
-  }
+  name: 'App'
 }
 </script>
 

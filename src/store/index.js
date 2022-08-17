@@ -1,11 +1,20 @@
 import { createStore } from 'vuex'
-
-const initialState = {
-
-}
+import User from './modules/user'
 
 export default createStore({
+  modules: {
+    User
+  },
   state: {
+
+  },
+  mutations: {
+
+  },
+  actions: {
+
+  },
+  getters: {
 
   }
 });

@@ -36,7 +36,6 @@
 
 <script>
 import Input from '@/modules/common/components/Input.vue'
-import LoginHooks from '../LoginHooks.js'
 
 export default {
 	name: 'Login',
@@ -48,7 +47,7 @@ export default {
 			credentials: {
 				username: '',
 				password: ''
-			}
+			},
 		}
 	},
 	methods: {
@@ -56,8 +55,7 @@ export default {
 			this.credentials[data.name] = data.value
 		},
 		handleSubmit() {
-			const response = LoginHooks.login(this.credentials)
-			console.log('response : ', response);
+			this.$store.dispatch('User/login', this.credentials);
 		}
 	}
 };
