@@ -1,6 +1,8 @@
 <template>
   Home {{ count }}
   <button v-on:click="increment">clic</button>
+  <router-link to="/spinner">spinner test</router-link>
+  <router-link to="/login">login lol</router-link>
 </template>
 
 <script>

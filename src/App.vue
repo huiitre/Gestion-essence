@@ -1,13 +1,18 @@
 <template>
-<router-link to="/">lien 1</router-link>
-<router-link to="/login">lien 2</router-link>
   <RouterView />
 </template>
 
 <script>
+import router from '@/router'
 
 export default {
-  name: 'App'
+  name: 'App',
+  created() {
+    const checkUser = () => {
+      console.log('checkUser');
+    }
+    console.log('router : ', router);
+  }
 }
 </script>
 

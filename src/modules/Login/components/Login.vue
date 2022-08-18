@@ -1,7 +1,6 @@
-//? penser à refaire la gestion des deux inputs, en ajoutant un composant Input réutilisable partout (voir repo moving forward)
 <template>
 	<div class="login">
-		<h1 class="login__title">Gestion Essence</h1>
+		<!-- <h1 class="login__title">Gestion Essence</h1> -->
 		<form @submit.prevent="handleSubmit" class="login__form">
 			<div class="login__form__username">
 				<Input
@@ -68,9 +67,10 @@ export default {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	justify-content: center;
 
 	//* titre H1
-	&__title {
+	/* &__title {
 		margin: 3rem auto 0 auto;
 		font-size: 2.5rem;
 		text-align: center;
@@ -78,13 +78,12 @@ export default {
 		width: 90%;
 		padding: 0.5rem;
 		font-weight: bold;
-	}
+	} */
 
 	//* formulaire
 	&__form {
 		height: 50%;
 		width: 60%;
-		margin-top: 3rem;
 		display: flex;
 		flex-direction: column;
 		justify-content: space-evenly;

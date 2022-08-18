@@ -1,23 +1,22 @@
 import { errorToast, spinnerToast, successToast } from '@/modules/common/components/toasts';
 import axios from 'axios';
 import { clearToasts } from 'mosha-vue-toastify';
+import router from '@/router';
 
 const client = axios.create({
 	baseURL: process.env.VUE_APP_ROOT_API,
-	/* headers: {
+	headers: {
     Accept: 'application/json',
 		'Content-Type': 'application/json',
-	}, */
+	},
 });
 
 //!##################################//
 //!              STATE               //
 //!##################################//
 const state = {
-	token: '',
+  user: {},
 	isLogged: false,
-	username: '',
-	name: '',
   count: 1,
 };
 
@@ -26,10 +25,8 @@ const state = {
 //!##################################//
 const mutations = {
 	initUser(state, payload) {
-    state.name = payload.name
-    state.token = payload.token
+    state.user = payload
     state.isLogged = true
-    state.username = payload.username
 	},
 	reset(state) {
 		state.token = '';
@@ -78,6 +75,7 @@ const actions = {
           username: res.data.data.email,
           name: res.data.data.name,
         })
+        router.push('/')
       })
       .catch((e) => {
         if (e.response.data.message == undefined) {

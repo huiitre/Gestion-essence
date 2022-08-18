@@ -1,61 +1,64 @@
 <template>
-	<div class="demo">
-		<div class="custom-loading-spinner"></div>
-		Quis enim aut eum diligat quem metuat, aut eum a quo se metui putet?
-		Coluntur tamen simulatione dumtaxat ad tempus. Quod si forte, ut fit
-		plerumque, ceciderunt, tum intellegitur quam fuerint inopes amicorum. Quod
-		Tarquinium dixisse ferunt, tum exsulantem se intellexisse quos fidos amicos
-		habuisset, quos infidos, cum iam neutris gratiam referre posset.
-	</div>
+<div class="loader__parent">
+	<div class="loader" />
+</div>
 </template>
 
 <script>
-export default {};
+export default {
+	name: 'Spinner',
+};
 </script>
 
 <style lang="scss" scoped>
-.demo {
-	width: 200px;
-	margin: 0 auto;
-	position: relative;
-	text-align: justify;
-}
-.custom-loading-spinner {
-	cursor: progress;
+.loader__parent {
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	position: absolute;
-	width: 100%;
-	height: 100%;
+	background-color: #ffffff2c;
 }
-.custom-loading-spinner::before {
-	content: '';
-	position: absolute;
-	width: 100%;
-	height: 100%;
-	z-index: 10001;
-	overflow: hidden;
-	background: #0b0b0b;
-	opacity: 0.6;
-}
-.custom-loading-spinner::after {
-	box-sizing: border-box;
-	z-index: 10002;
-	content: '';
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	margin: -25px 0 0 -25px;
-	border: 3px solid #f3f3f3;
-	border-top: 3px solid #3498db;
+
+.loader,
+.loader:after {
 	border-radius: 50%;
-	width: 50px;
-	height: 50px;
-	animation: custom-loading 1s linear infinite;
+	width: 8em;
+	height: 8em;
 }
-@keyframes custom-loading {
+.loader {
+	// margin: 60px auto;
+	font-size: 15px;
+	// position: relative;
+	// text-indent: -9999em;
+	border-top: 1.1em solid #ffffff54;
+	border-right: 1.1em solid #ffffff54;
+	border-bottom: 1.1em solid #ffffff54;
+	border-left: 1.1em solid #ffffff;
+	-webkit-transform: translateZ(0);
+	-ms-transform: translateZ(0);
+	transform: translateZ(0);
+	-webkit-animation: load8 1.1s infinite linear;
+	animation: load8 1.1s infinite linear;
+}
+@-webkit-keyframes load8 {
 	0% {
+		-webkit-transform: rotate(0deg);
 		transform: rotate(0deg);
 	}
 	100% {
+		-webkit-transform: rotate(360deg);
+		transform: rotate(360deg);
+	}
+}
+@keyframes load8 {
+	0% {
+		-webkit-transform: rotate(0deg);
+		transform: rotate(0deg);
+	}
+	100% {
+		-webkit-transform: rotate(360deg);
 		transform: rotate(360deg);
 	}
 }
