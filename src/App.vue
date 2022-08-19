@@ -1,17 +1,21 @@
 <template>
-  <RouterView />
+  <Spinner v-if="isLoadingCheckUser" />
+  <RouterView v-if="!isLoadingCheckUser" />
 </template>
 
 <script>
 import router from '@/router'
+import Spinner from '@/modules/common/components/Spinner.vue'
 
 export default {
   name: 'App',
-  created() {
-    const checkUser = () => {
-      console.log('checkUser');
+  components: {
+    Spinner
+  },
+  computed: {
+    isLoadingCheckUser() {
+      return this.$store.getters['User/getLoadingCheckUser']
     }
-    console.log('router : ', router);
   }
 }
 </script>

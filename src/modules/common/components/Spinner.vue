@@ -1,5 +1,5 @@
 <template>
-<div class="loader__parent">
+<div class="loader__parent" :class="{ background: activeBackground }">
 	<div class="loader" />
 </div>
 </template>
@@ -7,10 +7,14 @@
 <script>
 export default {
 	name: 'Spinner',
+	props: ['activeBackground']
 };
 </script>
 
 <style lang="scss" scoped>
+.background {
+	background-color: #ffffff2c;
+}
 .loader__parent {
 	width: 100vw;
 	height: 100vh;
@@ -18,7 +22,6 @@ export default {
 	justify-content: center;
 	align-items: center;
 	position: absolute;
-	background-color: #ffffff2c;
 }
 
 .loader,

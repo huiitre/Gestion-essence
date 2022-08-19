@@ -1,15 +1,8 @@
 import { errorToast, spinnerToast, successToast } from '@/modules/common/components/toasts';
-import axios from 'axios';
+// import axios from 'axios';
 import { clearToasts } from 'mosha-vue-toastify';
 import router from '@/router';
-
-const client = axios.create({
-	baseURL: process.env.VUE_APP_ROOT_API,
-	headers: {
-    Accept: 'application/json',
-		'Content-Type': 'application/json',
-	},
-});
+import client from '@/services/axiosInstance';
 
 //!##################################//
 //!              STATE               //
@@ -17,6 +10,7 @@ const client = axios.create({
 const state = {
   user: {},
 	isLogged: false,
+  loadingCheckUser: false,
   count: 1,
 };
 
@@ -47,6 +41,9 @@ const mutations = {
 		state.token = token;
 		localStorage.setItem('token');
 	},
+  setLoadingCheckUser(state, bool) {
+    state.loadingCheckUser = bool
+  }
 };
 
 //!##################################//
@@ -87,25 +84,40 @@ const actions = {
       .finally(() => {
         clearToasts();
       });
-
-    /* client.post('/login_check', config)
-      .then((res) => {
-        console.log('response : ', res);
-        commit('initUser');
+  },
+  async checkUser(store) {
+    store.commit('setLoadingCheckUser', true);
+    try {
+      const response = await client.get('/user/profile')
+      store.commit('initUser', {
+        token: localStorage.getItem('token'),
+        username: response.data.email,
+        name: response.data.name,
       })
-      .catch((e) => {
-        console.log('error : ', e.response);
-      })
-      .finally((evt) => {
-        console.log('evenement : ', evt);
-      }); */
+      router.push('/')
+      store.commit('setLoadingCheckUser', false);
+      return response
+    } catch(e) {
+      //? pas encore pu gérer cette partie
+      //? il me faudrait modifier la durée d'expiration du token ..
+      // router.push('/login')
+      // store.commit('setLoadingCheckUser', false);
+      return e;
+    }
   }
 };
 
 //!##################################//
 //!             GETTERS              //
 //!##################################//
-const getters = {};
+const getters = {
+  getUser(state) {
+    return state.user
+  },
+  getLoadingCheckUser(state) {
+    return state.loadingCheckUser
+  }
+};
 
 export default {
 	namespaced: true,
