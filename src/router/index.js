@@ -18,14 +18,14 @@ const router = createRouter({
 		{
 			path: '/',
 			name: 'home',
-			meta: { requireAuth: true },
+			meta: { requireAuth: true, transition: 'slide-left' },
 			component: () => import('@/views/HomeView.vue'),
 		},
 		{
-			path: '/home2',
-			name: 'home2',
+			path: '/gestion-essence',
+			name: 'gestion-essence',
 			meta: { requireAuth: true },
-			component: () => import('@/views/HomeView.vue'),
+			component: () => import('@/views/GestionEssenceView.vue'),
 		},
 		{
 			path: '/home3',
@@ -45,6 +45,9 @@ const router = createRouter({
 
 router.beforeEach((to, from) => {
 	window.scrollTo(0, 0);
+	
+	store.commit('Core/setCurrentPage', to.path)
+	store.commit('Core/setPreviousPage', from.path)
 
 	//* debug
 	// console.log('to : ', to);
@@ -73,7 +76,6 @@ router.beforeEach((to, from) => {
 		store.commit('User/setLoadingCheckUser', true)
 		client.get('/user/profile')
 			.then((response) => {
-				console.log('le token est bon : ', to.fullPath);
 				store.commit('User/initUser', {
 					token: localStorage.getItem('token'),
 					username: response.data.email,

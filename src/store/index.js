@@ -1,9 +1,11 @@
 import { createStore } from 'vuex'
 import User from './modules/user'
+import Core from './modules/core'
 
 export default createStore({
   modules: {
-    User
+    User,
+    Core
   },
   state: {
 
