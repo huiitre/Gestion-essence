@@ -11,7 +11,6 @@ const state = {
   user: {},
 	isLogged: false,
   loadingCheckUser: false,
-  count: 1,
 };
 
 //!##################################//
@@ -27,14 +26,10 @@ const mutations = {
 		state.isLogged = false;
 		state.username = '';
 		state.name = '';
-    state.count = 1;
 	},
 	logout() {
 		this.commit('User/setToken', '');
 	},
-  test(state, payload) {
-    state.count += payload.nb;
-  },
 
 	//* Setters
 	setToken(state, token) {
@@ -85,26 +80,6 @@ const actions = {
         clearToasts();
       });
   },
-  async checkUser(store) {
-    store.commit('setLoadingCheckUser', true);
-    try {
-      const response = await client.get('/user/profile')
-      store.commit('initUser', {
-        token: localStorage.getItem('token'),
-        username: response.data.email,
-        name: response.data.name,
-      })
-      router.push('/')
-      store.commit('setLoadingCheckUser', false);
-      return response
-    } catch(e) {
-      //? pas encore pu gérer cette partie
-      //? il me faudrait modifier la durée d'expiration du token ..
-      // router.push('/login')
-      // store.commit('setLoadingCheckUser', false);
-      return e;
-    }
-  }
 };
 
 //!##################################//
