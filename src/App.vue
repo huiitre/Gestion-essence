@@ -1,11 +1,10 @@
 <template>
   <Spinner v-if="isLoadingCheckUser" />
-  <Header v-if="isLogged" />
+  <Header />
   <RouterView class="page" v-if="!isLoadingCheckUser" />
 </template>
 
 <script>
-import router from '@/router'
 import Spinner from '@/modules/common/components/Spinner.vue'
 import Header from '@/modules/common/components/Header.vue'
 
@@ -13,14 +12,18 @@ export default {
   name: 'App',
   components: {
     Spinner,
-    Header
+    Header,
   },
   computed: {
     isLoadingCheckUser() {
       return this.$store.getters['User/getLoadingCheckUser']
     },
     isLogged() {
+      console.log('isLogged : ', this.$store.getters['User/getIsLogged']);
       return this.$store.getters['User/getIsLogged']
+    },
+    currentView() {
+      return this.$store.getters['Core/getCurrentView']
     }
   }
 }

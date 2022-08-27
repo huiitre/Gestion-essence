@@ -82,7 +82,8 @@ const actions = {
         router.push('/')
       })
       .catch((e) => {
-        if (e.response.data.message == undefined) {
+        console.log('e : ', e);
+        if (e.response.data == undefined) {
           errorToast('Une erreur est survenu, merci de réessayer ultérieurement');
         } else {
           errorToast(e.response.data.message);

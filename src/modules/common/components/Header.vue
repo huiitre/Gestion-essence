@@ -1,12 +1,12 @@
 <template>
 	<header class="header">
     <div class="header__options">
-      <router-link class="header__option__return" :to="getPreviousPage"><i class="header__option__return-icon bi bi-arrow-left-square"></i></router-link>
+      <router-link class="header__option__return"><i class="header__option__return-icon bi bi-arrow-left-square"></i></router-link>
     </div>
 		<h1 class="header__title">
-			<span class="header__title-name">{{ getName }}</span>
+			<span class="header__title-name">salut salut</span>
 		</h1>
-		<div v-on:click="logout" class="header__disconnect">
+		<div class="header__disconnect">
 			<i class="header__disconnect-icon bi bi-box-arrow-right"></i>
 		</div>
 	</header>
@@ -17,22 +17,19 @@ import { successToast } from './toasts';
 export default {
 	name: 'Header',
 	computed: {
-		getName() {
+		/* getName() {
 			return this.$store.getters['User/getName'];
-		},
-    getPreviousPage() {
-      return this.$store.getters['Core/getPreviousPage']
-    }
+		} */
 	},
 	methods: {
-		logout() {
+		/* logout() {
 			//* on appelle la mutation Logout
 			this.$store.commit('User/logout');
 			//* on redirige vers /login
 			this.$router.push('/login');
 			successToast('Vous êtes déconnecté !');
-		},
-	},
+		}, */
+	}
 };
 </script>
 

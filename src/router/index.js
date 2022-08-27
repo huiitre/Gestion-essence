@@ -1,4 +1,5 @@
 import {
+	createMemoryHistory,
 	createRouter,
 	createWebHashHistory,
 	createWebHistory,
@@ -13,7 +14,7 @@ const router = createRouter({
 	history:
 		process.env.NODE_ENV == 'development'
 			? createWebHistory(process.env.BASE_URL)
-			: createWebHashHistory(process.env.BASE_URL),
+			: createMemoryHistory(process.env.BASE_URL),
 	routes: [
 		{
 			path: '/',
@@ -28,10 +29,16 @@ const router = createRouter({
 			component: () => import('@/views/GestionEssenceView.vue'),
 		},
 		{
+			path: '/home2',
+			name: 'home2',
+			meta: { requireAuth: true },
+			component: () => import('@/views/GestionEssenceView.vue'),
+		},
+		{
 			path: '/home3',
 			name: 'home3',
 			meta: { requireAuth: true },
-			component: () => import('@/views/HomeView.vue'),
+			component: () => import('@/views/GestionEssenceView.vue'),
 		},
 		{
 			path: '/login',
@@ -46,8 +53,12 @@ const router = createRouter({
 router.beforeEach((to, from) => {
 	window.scrollTo(0, 0);
 	
-	store.commit('Core/setCurrentPage', to.path)
-	store.commit('Core/setPreviousPage', from.path)
+	//* si on est sur la page login, on vide le state.core.viewsHistory
+	// if (to.fullPath == '#/login' || to.fullPath == '/login')
+
+
+	console.log('to.path : ', to.path);
+	console.log('from.path : ', from.path);
 
 	//* debug
 	// console.log('to : ', to);
