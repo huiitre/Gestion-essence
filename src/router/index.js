@@ -19,14 +19,14 @@ const router = createRouter({
 		{
 			path: '/',
 			name: 'home',
-			meta: { requireAuth: true, transition: 'slide-left' },
+			meta: { requireAuth: true },
 			component: () => import('@/views/HomeView.vue'),
 		},
 		{
-			path: '/gestion-essence',
-			name: 'gestion-essence',
+			path: '/home2',
+			name: 'home2',
 			meta: { requireAuth: true },
-			component: () => import('@/views/GestionEssenceView.vue'),
+			component: () => import('@/views/HomeView.vue'),
 		},
 		{
 			path: '/home2',
@@ -87,6 +87,7 @@ router.beforeEach((to, from) => {
 		store.commit('User/setLoadingCheckUser', true)
 		client.get('/user/profile')
 			.then((response) => {
+				console.log('le token est bon : ', to.fullPath);
 				store.commit('User/initUser', {
 					token: localStorage.getItem('token'),
 					username: response.data.email,

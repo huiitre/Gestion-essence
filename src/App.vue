@@ -1,6 +1,6 @@
 <template>
   <Spinner v-if="isLoadingCheckUser" />
-  <Header />
+  <Header v-if="isLogged" />
   <RouterView class="page" v-if="!isLoadingCheckUser" />
 </template>
 
@@ -19,7 +19,6 @@ export default {
       return this.$store.getters['User/getLoadingCheckUser']
     },
     isLogged() {
-      console.log('isLogged : ', this.$store.getters['User/getIsLogged']);
       return this.$store.getters['User/getIsLogged']
     },
     currentView() {

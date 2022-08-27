@@ -14,24 +14,6 @@ const state = {
 };
 
 //!##################################//
-//!             GETTERS              //
-//!##################################//
-const getters = {
-  getName(state) {
-    return state.user.name
-  },
-  getEmail(state) {
-    return state.user.username
-  },
-  getLoadingCheckUser(state) {
-    return state.loadingCheckUser
-  },
-  getIsLogged(state) {
-    return state.isLogged
-  }
-};
-
-//!##################################//
 //!            MUTATIONS             //
 //!##################################//
 const mutations = {
@@ -39,13 +21,21 @@ const mutations = {
     state.user = payload
     state.isLogged = true
 	},
-	logout(state) {
-		state.user = {}
-    state.isLogged = false
-    localStorage.removeItem('token')
+	reset(state) {
+		state.token = '';
+		state.isLogged = false;
+		state.username = '';
+		state.name = '';
+	},
+	logout() {
+		this.commit('User/setToken', '');
 	},
 
 	//* Setters
+	setToken(state, token) {
+		state.token = token;
+		localStorage.setItem('token');
+	},
   setLoadingCheckUser(state, bool) {
     state.loadingCheckUser = bool
   }
@@ -60,8 +50,6 @@ const actions = {
     //* On clear tous les autres toast et on affiche le toast loading
     clearToasts();
     spinnerToast('Connexion en cours ...');
-
-    console.log('payload : ', payload);
 
     client.post('/login_check', payload)
       .then((res) => {
@@ -93,6 +81,18 @@ const actions = {
         clearToasts();
       });
   },
+};
+
+//!##################################//
+//!             GETTERS              //
+//!##################################//
+const getters = {
+  getUser(state) {
+    return state.user
+  },
+  getLoadingCheckUser(state) {
+    return state.loadingCheckUser
+  }
 };
 
 export default {
