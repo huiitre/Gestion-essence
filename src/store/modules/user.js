@@ -17,27 +17,22 @@ const state = {
 //!            MUTATIONS             //
 //!##################################//
 const mutations = {
-	initUser(state, payload) {
-    state.user = payload
-    state.isLogged = true
-	},
-	reset(state) {
-		state.token = '';
-		state.isLogged = false;
-		state.username = '';
-		state.name = '';
-	},
 	logout() {
-		this.commit('User/setToken', '');
+		this.commit('User/setResetUser');
+    localStorage.removeItem('token')
 	},
 
 	//* Setters
-	setToken(state, token) {
-		state.token = token;
-		localStorage.setItem('token');
-	},
   setLoadingCheckUser(state, bool) {
     state.loadingCheckUser = bool
+  },
+  setUser(state, payload) {
+    state.user = payload
+    state.isLogged = true
+	},
+  setResetUser(state) {
+    state.user = {};
+    state.isLogged = false;
   }
 };
 
@@ -62,7 +57,7 @@ const actions = {
         localStorage.setItem('token', token);
 
         //* Stockage des informations de l'utilisateur dans le store
-        store.commit('initUser', {
+        store.commit('setUser', {
           token: res.data.token,
           username: res.data.data.email,
           name: res.data.data.name,
@@ -87,11 +82,14 @@ const actions = {
 //!             GETTERS              //
 //!##################################//
 const getters = {
-  getUser(state) {
-    return state.user
+  getName(state) {
+    return state.user.name
   },
   getLoadingCheckUser(state) {
     return state.loadingCheckUser
+  },
+  getIsLogged(state) {
+    return state.isLogged
   }
 };
 

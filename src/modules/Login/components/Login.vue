@@ -122,7 +122,7 @@ export default {
 				width: 100%;
         background-color: #476382;
 				height: 2.5rem;
-        font-size: 1.5rem;
+        font-size: 1rem;
         font-weight: bold;
         border: none;
         border-radius: 10px;

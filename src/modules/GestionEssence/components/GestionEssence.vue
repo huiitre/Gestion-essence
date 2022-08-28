@@ -1,7 +1,5 @@
 <template>
-  <router-link class="link-test" to="/gestion-essence">gestion essence</router-link>
-  <router-link class="link-test" to="/home2">home2</router-link>
-  <router-link class="link-test" to="/home3">home3</router-link>
+  <h1>gestion essence</h1>
 </template>
 
 <script>
@@ -18,4 +16,3 @@ export default {
   color: #fff;
 }
 </style>
-
