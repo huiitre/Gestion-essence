@@ -15,17 +15,15 @@
 			</div>
 			<Separator />
 			<div class="date">Juin 2022</div>
-			<div class="list">
-				<Transaction />
-				<Transaction />
-				<Transaction />
-				<Transaction />
-				<Transaction />
-				<Transaction />
-				<Transaction />
-				<Transaction />
-				<Transaction />
-			</div>
+			<overlay
+				:opened="opened"
+				:visible="visible"
+				@closed="opened = visible = false"
+				@opened="someCallback"
+			>
+				<span>My popup</span>
+			</overlay>
+			<TransactionsList />
 		</div>
 	</main>
 </template>
@@ -38,7 +36,8 @@ import RemoveButton from '@/modules/common/components/form/buttons/RemoveButton.
 import Separator from '@/modules/common/components/Separator.vue';
 
 //* GESTION ESSENCE
-import Transaction from '@/modules/GestionEssence/components/Transaction.vue'
+import TransactionsList from '@/modules/GestionEssence/components/TransactionsList.vue'
+import Detailtransaction from '@/modules/GestionEssence/components/popup/DetailTransaction.vue';
 
 export default {
 	components: {
@@ -46,10 +45,22 @@ export default {
 		AddButton,
 		RemoveButton,
 		Separator,
-    Transaction
+		Detailtransaction,
+    TransactionsList
 	},
 	name: 'GestionEssence',
 	computed: {},
+  methods: {
+    openDetail() {
+      console.log('heree');
+    }
+  },
+	data() {
+		return {
+			opened: false,
+			visible: false,
+		};
+	},
 };
 </script>
 

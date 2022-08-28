@@ -49,10 +49,6 @@ router.beforeEach((to, from) => {
 	//* si on est sur la page login, on vide le state.core.viewsHistory
 	// if (to.fullPath == '#/login' || to.fullPath == '/login')
 
-
-	console.log('to.path : ', to.path);
-	console.log('from.path : ', from.path);
-
 	//* debug
 	// console.log('to : ', to);
 	// console.log('from : ', from);
@@ -80,7 +76,6 @@ router.beforeEach((to, from) => {
 		store.commit('User/setLoadingCheckUser', true)
 		client.get('/user/profile')
 			.then((response) => {
-				console.log('le token est bon : ', to.fullPath);
 				store.commit('User/setUser', {
 					token: localStorage.getItem('token'),
 					username: response.data.email,
