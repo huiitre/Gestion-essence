@@ -1,5 +1,12 @@
 <template>
 	<main class="gestion-essence">
+		<Overlay
+			:opened="false"
+			:visible="false"
+			@opened="someCallback"
+		>
+			<span>My popup</span>
+		</Overlay>
 		<div class="gestion-essence__header">
 			<ReturnButton path="/" />
 			<div class="crud">
@@ -15,20 +22,24 @@
 			</div>
 			<Separator />
 			<div class="date">Juin 2022</div>
-			<overlay
-				:opened="opened"
-				:visible="visible"
-				@closed="opened = visible = false"
-				@opened="someCallback"
-			>
-				<span>My popup</span>
-			</overlay>
-			<TransactionsList />
+			<div class="list">
+				<Transaction :openDetail="openDetail" />
+				<Transaction :openDetail="openDetail" />
+				<Transaction :openDetail="openDetail" />
+				<Transaction :openDetail="openDetail" />
+				<Transaction :openDetail="openDetail" />
+				<Transaction :openDetail="openDetail" />
+				<Transaction :openDetail="openDetail" />
+				<Transaction :openDetail="openDetail" />
+				<Transaction :openDetail="openDetail" />
+			</div>
 		</div>
 	</main>
 </template>
 
 <script>
+//* NPM
+
 //* COMMON
 import ReturnButton from '@/modules/common/components/form/buttons/ReturnButton.vue';
 import AddButton from '@/modules/common/components/form/buttons/AddButton.vue';
@@ -36,7 +47,7 @@ import RemoveButton from '@/modules/common/components/form/buttons/RemoveButton.
 import Separator from '@/modules/common/components/Separator.vue';
 
 //* GESTION ESSENCE
-import TransactionsList from '@/modules/GestionEssence/components/TransactionsList.vue'
+import Transaction from '@/modules/GestionEssence/components/Transaction.vue';
 import Detailtransaction from '@/modules/GestionEssence/components/popup/DetailTransaction.vue';
 
 export default {
@@ -45,16 +56,16 @@ export default {
 		AddButton,
 		RemoveButton,
 		Separator,
+		Transaction,
 		Detailtransaction,
-    TransactionsList
 	},
 	name: 'GestionEssence',
 	computed: {},
-  methods: {
-    openDetail() {
-      console.log('heree');
-    }
-  },
+	methods: {
+		openDetail() {
+			console.log('heree');
+		},
+	},
 	data() {
 		return {
 			opened: false,

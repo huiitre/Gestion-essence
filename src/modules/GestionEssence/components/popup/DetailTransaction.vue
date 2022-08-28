@@ -1,17 +1,13 @@
 <template>
-  <Overlay :opened="true" :visible="true" @closed="opened = visible = false">
-    <span>My popup</span>
-  </Overlay>
+  qsdsqddqssdq
 </template>
 
 <script>
-import Overlay from 'vuejs-overlay';
 
 export default {
   name: 'DetailTransaction',
   props: ['isOpen'],
   components: {
-    Overlay
   }
 };
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <div class="transaction">
+  <div class="transaction" v-on:click="openDetail">
     <span class="transaction__date">05/02/2022</span>
     <span class="transaction__montant">65.85 €</span>
     <span class="transaction__conso">6.5L/100</span>
@@ -9,6 +9,7 @@
 <script>
 export default {
   name: 'Transaction',
+  props: ['openDetail'],
   computed: {
   },
 };
