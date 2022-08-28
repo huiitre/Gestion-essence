@@ -1,16 +1,17 @@
 <template>
   <main class="home">
-    <div class="module-list">
-      <div class="module-item">Gestion Essence</div>
-      <div class="module-item">Gestion Essence</div>
-      <div class="module-item">Gestion Essence</div>
-    </div>
+    <HomeList />
   </main>
 </template>
 
 <script>
+import HomeList from '@/modules/Home/components/HomeList.vue'
+
 export default {
   name: 'Home',
+  components: {
+    HomeList
+  },
   computed: {
   },
   methods: {

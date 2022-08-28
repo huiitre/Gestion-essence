@@ -28,18 +28,6 @@ const router = createRouter({
 			},
 		},
 		{
-			path: '/home2',
-			name: 'home2',
-			meta: { requireAuth: true },
-			component: () => import('@/views/HomeView.vue'),
-		},
-		{
-			path: '/home3',
-			name: 'home3',
-			meta: { requireAuth: true },
-			component: () => import('@/views/HomeView.vue'),
-		},
-		{
 			path: '/gestion-essence',
 			name: 'gestion-essence',
 			meta: { requireAuth: true },
