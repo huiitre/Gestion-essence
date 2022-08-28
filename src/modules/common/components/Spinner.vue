@@ -13,7 +13,7 @@ export default {
 
 <style lang="scss" scoped>
 .background {
-	background-color: #ffffff2c;
+	background-color: $spinner-background;
 }
 .loader__parent {
 	width: 100vw;
@@ -35,10 +35,10 @@ export default {
 	font-size: 15px;
 	// position: relative;
 	// text-indent: -9999em;
-	border-top: 1.1em solid #ffffff54;
-	border-right: 1.1em solid #ffffff54;
-	border-bottom: 1.1em solid #ffffff54;
-	border-left: 1.1em solid #ffffff;
+	border-top: 1.1em solid $opacity-half;
+	border-right: 1.1em solid $opacity-half;
+	border-bottom: 1.1em solid $opacity-half;
+	border-left: 1.1em solid $white;
 	-webkit-transform: translateZ(0);
 	-ms-transform: translateZ(0);
 	transform: translateZ(0);

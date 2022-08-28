@@ -13,7 +13,7 @@ export default {
 
 <style lang="scss" scoped>
 .module-item {
-	border: 2px solid #a6a6a6;
+	border: 2px solid $grey-light;
 	padding: 1.5rem;
 	text-align: center;
 	font-size: 1.4rem;
