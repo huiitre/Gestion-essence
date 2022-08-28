@@ -1,8 +1,10 @@
-@import url('./reset.scss');
-@import url('./_vars.scss');
+// @import url('./reset.scss');
+// @import url('./_vars.scss');
+// @use 'reset';
+// @use 'vars';
 
 body {
-  background-color: #2c3e50;
+  background-color: $main-background;
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

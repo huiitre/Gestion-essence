@@ -1,8 +1,8 @@
 <template>
   <div class="transaction">
-    <span>date</span>
-    <span>montant</span>
-    <span>conso</span>
+    <span class="transaction__date">date</span>
+    <span class="transaction__montant">montant</span>
+    <span class="transaction__conso">conso</span>
   </div>
 </template>
 
@@ -13,5 +13,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.transaction {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #fff;
 
+  &__date {
+
+  }
+  &__montant {
+
+  }
+  &__conso {
+
+  }
+}
 </style>

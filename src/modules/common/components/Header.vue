@@ -52,7 +52,7 @@ export default {
 	// position: fixed;
 	max-width: 100%;
 	// top: 0;
-	background-color: #516ebe;
+	background-color: $header-background;
 
 	&__title {
 		padding-left: 1rem;
