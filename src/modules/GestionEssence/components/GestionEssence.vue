@@ -1,12 +1,5 @@
 <template>
 	<main class="gestion-essence">
-		<Overlay
-			:opened="false"
-			:visible="false"
-			@opened="someCallback"
-		>
-			<span>My popup</span>
-		</Overlay>
 		<div class="gestion-essence__header">
 			<ReturnButton path="/" />
 			<div class="crud">
@@ -48,7 +41,6 @@ import Separator from '@/modules/common/components/Separator.vue';
 
 //* GESTION ESSENCE
 import Transaction from '@/modules/GestionEssence/components/Transaction.vue';
-import Detailtransaction from '@/modules/GestionEssence/components/popup/DetailTransaction.vue';
 
 export default {
 	components: {
@@ -57,7 +49,6 @@ export default {
 		RemoveButton,
 		Separator,
 		Transaction,
-		Detailtransaction,
 	},
 	name: 'GestionEssence',
 	computed: {},
