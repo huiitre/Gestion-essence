@@ -33,7 +33,6 @@ export default {
 	methods: {
 		logout() {
 			successToast('Vous êtes déconnecté !');
-
 			//* on appelle la mutation Logout
 			this.$store.commit('User/logout');
 			//* on redirige vers /login
