@@ -1,8 +1,8 @@
 {
-  "name": "com.essence.gestion",
-  "displayName": "Gestion essence",
+  "name": "fr.huiitre.tools",
+  "displayName": "Tools",
   "version": "1.0.0",
-  "description": "Gestion des pleins essence sous android",
+  "description": "Application Toolz - huiitre.fr",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -12,12 +12,12 @@
   ],
   "author": "Apache Cordova Team",
   "license": "Apache-2.0",
-  "devDependencies": {
-    "cordova-android": "^10.1.2"
-  },
   "cordova": {
     "platforms": [
       "android"
     ]
+  },
+  "devDependencies": {
+    "cordova-android": "^10.1.2"
   }
 }
