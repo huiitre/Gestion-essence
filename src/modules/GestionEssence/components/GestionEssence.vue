@@ -16,15 +16,15 @@
 			<Separator />
 			<div class="date">Juin 2022</div>
 			<div class="list">
-				<Transaction :openDetail="openDetail" />
-				<Transaction :openDetail="openDetail" />
-				<Transaction :openDetail="openDetail" />
-				<Transaction :openDetail="openDetail" />
-				<Transaction :openDetail="openDetail" />
-				<Transaction :openDetail="openDetail" />
-				<Transaction :openDetail="openDetail" />
-				<Transaction :openDetail="openDetail" />
-				<Transaction :openDetail="openDetail" />
+				<Transaction :isOpenDetail="isOpenDetail" />
+				<Transaction :isOpenDetail="isOpenDetail" />
+				<Transaction :isOpenDetail="isOpenDetail" />
+				<Transaction :isOpenDetail="isOpenDetail" />
+				<Transaction :isOpenDetail="isOpenDetail" />
+				<Transaction :isOpenDetail="isOpenDetail" />
+				<Transaction :isOpenDetail="isOpenDetail" />
+				<Transaction :isOpenDetail="isOpenDetail" />
+				<Transaction :isOpenDetail="isOpenDetail" />
 			</div>
 		</div>
 	</main>
@@ -53,7 +53,7 @@ export default {
 	name: 'GestionEssence',
 	computed: {},
 	methods: {
-		openDetail() {
+		isOpenDetail() {
 			console.log('heree');
 		},
 	},

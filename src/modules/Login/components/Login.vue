@@ -63,7 +63,7 @@ export default {
 <style lang="scss">
 //* composant login
 .login {
-	height: 100%;
+	// height: 100%;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
