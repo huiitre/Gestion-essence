@@ -1,22 +1,19 @@
 //!##################################//
 //!              STATE               //
+
+import client from "@/services/axiosInstance"
+
 //!##################################//
 const state = {
-  detailTransaction: {
-    isOpen: false,
-    isVisible: false,
-  }
+  transactionsList: []
 }
 
 //!##################################//
 //!             GETTERS              //
 //!##################################//
 const getters = {
-  getIsOpen(s) {
-    return s.detailTransaction.isOpen
-  },
-  getIsVisible(s) {
-    return s.detailTransaction.isVisible
+  getTransactionsList(s) {
+    return s.transactionsList
   }
 }
 
@@ -24,19 +21,25 @@ const getters = {
 //!            MUTATIONS             //
 //!##################################//
 const mutations = {
-  getIsOpen(s) {
-    s.detailTransaction.isOpen = !s.detailTransaction.isOpen
-  },
-  getIsVisible(s) {
-    s.detailTransaction.isVisible = !s.detailTransaction.isVisible
-  },
+  setTransactionsList(s, data) {
+    s.transactionsList = data
+  }
 }
 
 //!##################################//
 //!             ACTIONS              //
 //!##################################//
 const actions = {
-
+  allFuelTransactions(store) {
+    client.get('/transaction/essence/all')
+      .then((r) =>  {
+        console.log('response : ', r);
+        store.commit('setTransactionsList', r.data)
+      })
+      .catch((e) => {
+        console.log('error : ', e);
+      })
+  }
 }
 
 export default {

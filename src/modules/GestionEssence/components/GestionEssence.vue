@@ -15,16 +15,8 @@
 			</div>
 			<Separator />
 			<div class="date">Juin 2022</div>
-			<div class="list">
-				<Transaction :isOpenDetail="isOpenDetail" />
-				<Transaction :isOpenDetail="isOpenDetail" />
-				<Transaction :isOpenDetail="isOpenDetail" />
-				<Transaction :isOpenDetail="isOpenDetail" />
-				<Transaction :isOpenDetail="isOpenDetail" />
-				<Transaction :isOpenDetail="isOpenDetail" />
-				<Transaction :isOpenDetail="isOpenDetail" />
-				<Transaction :isOpenDetail="isOpenDetail" />
-				<Transaction :isOpenDetail="isOpenDetail" />
+			<div class="list" v-if="getTransactions">
+				<Transaction v-for="val of getTransactions" :key="val.id" :item="{...val}" />
 			</div>
 		</div>
 	</main>
@@ -51,18 +43,16 @@ export default {
 		Transaction,
 	},
 	name: 'GestionEssence',
-	computed: {},
+	computed: {
+		getTransactions() {
+			return this.$store.getters['GestionEssence/getTransactionsList']
+		}
+	},
 	methods: {
-		isOpenDetail() {
-			console.log('heree');
-		},
 	},
-	data() {
-		return {
-			opened: false,
-			visible: false,
-		};
-	},
+	mounted() {
+		this.$store.dispatch('GestionEssence/allFuelTransactions')
+	}
 };
 </script>
 
