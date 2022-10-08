@@ -8,7 +8,7 @@ const client = axios.create({
   }
 })
 
-const token = localStorage.getItem('token')
+const token = localStorage.getItem('token');
 
 if (token) {
   client.defaults.headers.common.authorization = `Bearer ${token}`

@@ -1,8 +1,8 @@
 <template>
   <div class="transaction" v-on:click="setIsOpen">
-    <span class="transaction__date">{{ item.t_created_at }}</span> | 
-    <span class="transaction__montant">{{ item.t_balance }}</span> | 
-    <span class="transaction__conso">{{ item.conso }} L/100</span>
+    <span class="transaction__date">{{ transformDate }}</span> | 
+    <span class="transaction__montant">{{ item.t_montant }} €</span> | 
+    <span class="transaction__conso">{{ item.t_conso }} L / 100</span>
   </div>
 </template>
 
@@ -14,6 +14,11 @@ export default {
   components: {
   },
   computed: {
+    transformDate() {
+      const date = new Date(this.item.t_date)
+      const newDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`
+      return newDate
+    }
   },
   methods: {
   },

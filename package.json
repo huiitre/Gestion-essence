@@ -47,6 +47,9 @@
       ],
       "vue/no-unused-components": [
         "off"
+      ],
+      "no-mixed-spaces-and-tabs": [
+        "off"
       ]
     }
   },

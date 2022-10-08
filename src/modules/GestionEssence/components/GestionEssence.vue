@@ -11,10 +11,10 @@
 		<div class="gestion-essence__content">
 			<div class="infos">
 				<div class="infos__vehicle">Véhicule : Ford Fiesta</div>
-				<div class="infos__conso">Consommation : 6.5L/100</div>
+				<div class="infos__conso">Consommation : {{ getAllConso }} L / 100</div>
 			</div>
 			<Separator />
-			<div class="date">Juin 2022</div>
+			<!-- <div class="date">Juin 2022</div> -->
 			<div class="list" v-if="getTransactions">
 				<Transaction v-for="val of getTransactions" :key="val.id" :item="{...val}" />
 			</div>
@@ -43,15 +43,35 @@ export default {
 		Transaction,
 	},
 	name: 'GestionEssence',
+	created() {
+		window.onscroll = function() {
+			const totalPageHeight = document.body.scrollHeight
+			const scrollPoint = window.scrollY + window.innerHeight
+
+			if (scrollPoint >= totalPageHeight) {
+				console.log('%c GestionEssence.vue #52 || scroll bas', 'background:red;color:#fff;font-weight:bold;');
+				this.allFuelTransactions()
+			}
+		}
+	},
 	computed: {
 		getTransactions() {
 			return this.$store.getters['GestionEssence/getTransactionsList']
+		},
+		getAllConso() {
+			return this.$store.getters['GestionEssence/getAllConso']
 		}
 	},
 	methods: {
+		/* handleScroll(e) {
+			console.log('%c GestionEssence.vue #59 || e : ', 'background:red;color:#fff;font-weight:bold;', e.scroll);
+		} */
+		allFuelTransactions() {
+			this.$store.dispatch('GestionEssence/allFuelTransactions')
+		}
 	},
 	mounted() {
-		this.$store.dispatch('GestionEssence/allFuelTransactions')
+		this.allFuelTransactions()
 	}
 };
 </script>

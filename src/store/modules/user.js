@@ -46,6 +46,8 @@ const actions = {
     clearToasts();
     spinnerToast('Connexion en cours ...');
 
+    console.log('%c user.js #49 || payload : ', 'background:red;color:#fff;font-weight:bold;', payload);
+
     client.post('/login_check', payload)
       .then((res) => {
 
@@ -65,7 +67,7 @@ const actions = {
         router.push('/')
       })
       .catch((e) => {
-        console.log('e : ', e);
+        console.log('%c user.js #70 || error : ', 'background:red;color:#fff;font-weight:bold;', e);
         if (e.response.data == undefined) {
           errorToast('Une erreur est survenu, merci de réessayer ultérieurement');
         } else {
