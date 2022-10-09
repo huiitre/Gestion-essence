@@ -2,6 +2,7 @@
 	<main class="gestion-essence">
 		<div class="gestion-essence__header">
 			<ReturnButton path="/" />
+			<ResetButton />
 			<div class="crud">
 				<AddButton />
 				<RemoveButton />
@@ -27,6 +28,7 @@
 
 //* COMMON
 import ReturnButton from '@/modules/common/components/form/buttons/ReturnButton.vue';
+import ResetButton from '@/modules/common/components/form/buttons/ResetButton.vue';
 import AddButton from '@/modules/common/components/form/buttons/AddButton.vue';
 import RemoveButton from '@/modules/common/components/form/buttons/RemoveButton.vue';
 import Separator from '@/modules/common/components/Separator.vue';
@@ -37,23 +39,13 @@ import Transaction from '@/modules/GestionEssence/components/Transaction.vue';
 export default {
 	components: {
 		ReturnButton,
+		ResetButton,
 		AddButton,
 		RemoveButton,
 		Separator,
 		Transaction,
 	},
 	name: 'GestionEssence',
-	updated() {
-		/* window.onscroll = function() {
-			const totalPageHeight = document.body.scrollHeight
-			const scrollPoint = window.scrollY + window.innerHeight
-
-			if (scrollPoint >= totalPageHeight) {
-				console.log('%c GestionEssence.vue #52 || scroll bas', 'background:red;color:#fff;font-weight:bold;');
-				this.allFuelTransactions
-			}
-		} */
-	},
 	computed: {
 		getTransactions() {
 			return this.$store.getters['GestionEssence/getTransactionsList']
@@ -66,27 +58,20 @@ export default {
 		/* handleScroll(e) {
 			console.log('%c GestionEssence.vue #59 || e : ', 'background:red;color:#fff;font-weight:bold;', e.scroll);
 		} */
-		allFuelTransactions() {
-			this.$store.dispatch('GestionEssence/allFuelTransactions')
+		allFuelTransactions(payload) {
+			this.$store.dispatch('GestionEssence/resetTransactionsList')
 		},
 		handleScroll() {
 			const totalPageHeight = document.body.scrollHeight
 			const scrollPoint = window.scrollY + window.innerHeight
 			if (scrollPoint >= totalPageHeight) {
-				this.$store.dispatch('GestionEssence/allFuelTransactions')
+				this.$store.dispatch('GestionEssence/allFuelTransactions', { scroll: true })
 			}
 		}
 	},
 	mounted() {
 		this.allFuelTransactions()
-
 		window.addEventListener('scroll', this.handleScroll);
-
-		/* const totalPageHeight = document.body.scrollHeight
-		const scrollPoint = window.scrollY + window.innerHeight
-		if (scrollPoint >= totalPageHeight) {
-			console.log('%c GestionEssence.vue #80 || scroll', 'background:red;color:#fff;font-weight:bold;');
-		} */
 	}
 };
 </script>

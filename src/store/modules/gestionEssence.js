@@ -48,6 +48,12 @@ const mutations = {
       s.allPages = data.allPages
       s.allConso = data.allConso
     }
+  },
+  setResetTransactionsList(s) {
+    s.transactionsList = []
+    s.currentPage = 1
+    s.allPages = ''
+    s.allConso = ''
   }
 }
 
@@ -55,7 +61,7 @@ const mutations = {
 //!             ACTIONS              //
 //!##################################//
 const actions = {
-  allFuelTransactions(store) {
+  allFuelTransactions(store, payload) {
     //! erreur 401 je comprends pas pourquoi
     /* client.get('/gestion-essence/list', { params: { page: store.state.currentPage } })
       .then((r) =>  {
@@ -65,19 +71,27 @@ const actions = {
       .catch((e) => {
         console.log('error : ', e);
       }) */
-
-    const client = axios.create({
-      baseURL: process.env.VUE_APP_ROOT_API,
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      }
-    });
-
+  
     if (store.state.currentPage < store.state.allPages || store.state.allPages == '') {
+      const client = axios.create({
+        baseURL: process.env.VUE_APP_ROOT_API,
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        }
+      });
       spinnerToast('Chargement des données en cours ...')
       //* si currentPage est inf au max de pages, on incrémente de 1, sinon on laisse la valeur par défaut
-      store.state.currentPage < store.state.allPages ? store.state.currentPage = store.state.currentPage + 1 : store.state.currentPage;
+      // store.state.currentPage < store.state.allPages ? store.state.currentPage = store.state.currentPage + 1 : store.state.currentPage;
+      let scroll = false;
+      if (payload !== undefined) {
+        scroll = payload.scroll;
+      }
+
+      if (scroll && store.state.currentPage < store.state.allPages) {
+        store.state.currentPage = store.state.currentPage + 1
+      }
+
       client.defaults.headers.common.authorization = `Bearer ${localStorage.getItem('token')}`
       client.get('/gestion-essence/list', { params: { page: store.state.currentPage } })
         .then((r) => {
@@ -91,6 +105,10 @@ const actions = {
           clearToasts()
         })
     }
+  },
+  resetTransactionsList(store) {
+    store.commit('setResetTransactionsList')
+    store.dispatch('allFuelTransactions')
   }
 }
 
