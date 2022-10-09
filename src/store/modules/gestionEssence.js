@@ -1,8 +1,10 @@
 //!##################################//
 //!              STATE               //
 
+import { errorToast, spinnerToast, successToast } from "@/modules/common/components/toasts"
 import client from "@/services/axiosInstance"
 import axios from "axios"
+import { clearToasts } from "mosha-vue-toastify"
 
 //!##################################//
 const state = {
@@ -35,10 +37,17 @@ const getters = {
 //!##################################//
 const mutations = {
   setTransactionsList(s, data) {
-    s.transactionsList = data.result
-    s.currentPage = data.currentPage
-    s.allPages = data.allPages
-    s.allConso = data.allConso
+    if (data.currentPage == 1) {
+      s.transactionsList = data.result
+      s.currentPage = Number(data.currentPage)
+      s.allPages = data.allPages
+      s.allConso = data.allConso
+    } else {
+      s.transactionsList = [...s.transactionsList, ...data.result]
+      s.currentPage = Number(data.currentPage)
+      s.allPages = data.allPages
+      s.allConso = data.allConso
+    }
   }
 }
 
@@ -64,15 +73,24 @@ const actions = {
         'Content-Type': 'application/json'
       }
     });
-    client.defaults.headers.common.authorization = `Bearer ${localStorage.getItem('token')}`
-    client.get('/gestion-essence/list', { params: { page: store.state.currentPage } })
-      .then((r) => {
-        console.log('response : ', r.data);
-        store.commit('setTransactionsList', r.data)
-      })
-      .catch((e) => {
-        console.log('error : ', e);
-      })
+
+    if (store.state.currentPage < store.state.allPages || store.state.allPages == '') {
+      spinnerToast('Chargement des données en cours ...')
+      //* si currentPage est inf au max de pages, on incrémente de 1, sinon on laisse la valeur par défaut
+      store.state.currentPage < store.state.allPages ? store.state.currentPage = store.state.currentPage + 1 : store.state.currentPage;
+      client.defaults.headers.common.authorization = `Bearer ${localStorage.getItem('token')}`
+      client.get('/gestion-essence/list', { params: { page: store.state.currentPage } })
+        .then((r) => {
+          store.commit('setTransactionsList', r.data)
+        })
+        .catch((e) => {
+          console.log('error : ', e);
+          errorToast('Une erreur s\'est produite lors du chargement des données')
+        })
+        .finally(() => {
+          clearToasts()
+        })
+    }
   }
 }
 

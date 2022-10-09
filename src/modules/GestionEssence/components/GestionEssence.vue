@@ -43,16 +43,16 @@ export default {
 		Transaction,
 	},
 	name: 'GestionEssence',
-	created() {
-		window.onscroll = function() {
+	updated() {
+		/* window.onscroll = function() {
 			const totalPageHeight = document.body.scrollHeight
 			const scrollPoint = window.scrollY + window.innerHeight
 
 			if (scrollPoint >= totalPageHeight) {
 				console.log('%c GestionEssence.vue #52 || scroll bas', 'background:red;color:#fff;font-weight:bold;');
-				this.allFuelTransactions()
+				this.allFuelTransactions
 			}
-		}
+		} */
 	},
 	computed: {
 		getTransactions() {
@@ -68,10 +68,25 @@ export default {
 		} */
 		allFuelTransactions() {
 			this.$store.dispatch('GestionEssence/allFuelTransactions')
+		},
+		handleScroll() {
+			const totalPageHeight = document.body.scrollHeight
+			const scrollPoint = window.scrollY + window.innerHeight
+			if (scrollPoint >= totalPageHeight) {
+				this.$store.dispatch('GestionEssence/allFuelTransactions')
+			}
 		}
 	},
 	mounted() {
 		this.allFuelTransactions()
+
+		window.addEventListener('scroll', this.handleScroll);
+
+		/* const totalPageHeight = document.body.scrollHeight
+		const scrollPoint = window.scrollY + window.innerHeight
+		if (scrollPoint >= totalPageHeight) {
+			console.log('%c GestionEssence.vue #80 || scroll', 'background:red;color:#fff;font-weight:bold;');
+		} */
 	}
 };
 </script>
