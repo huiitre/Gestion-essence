@@ -46,8 +46,6 @@ const actions = {
     clearToasts();
     spinnerToast('Connexion en cours ...');
 
-    console.log('%c user.js #49 || payload : ', 'background:red;color:#fff;font-weight:bold;', payload);
-
     client.post('/login_check', payload)
       .then((res) => {
 

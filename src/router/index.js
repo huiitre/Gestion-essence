@@ -31,7 +31,13 @@ const router = createRouter({
 			path: '/gestion-essence',
 			name: 'gestion-essence',
 			meta: { requireAuth: true },
-			component: () => import('@/views/GestionEssenceView.vue'),
+			component: () => import('@/views/GestionEssence/GestionEssenceView.vue'),
+		},
+		{
+			path: '/gestion-essence/add-transaction',
+			name: 'gestion-essence__add-transaction',
+			meta: { requireAuth: true },
+			component: () => import('@/views/GestionEssence/AddTransactionView.vue'),
 		},
 		{
 			path: '/login',

@@ -109,6 +109,29 @@ const actions = {
   resetTransactionsList(store) {
     store.commit('setResetTransactionsList')
     store.dispatch('allFuelTransactions')
+  },
+  addTransaction(store, payload) {
+    
+    spinnerToast('Ajout en cours ...')
+
+    const client = axios.create({
+      baseURL: process.env.VUE_APP_ROOT_API,
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      }
+    });
+    client.defaults.headers.common.authorization = `Bearer ${localStorage.getItem('token')}`
+    client.post('/gestion-essence/add')
+    .then((r) => {
+      successToast('L\'ajout a bien été effectué !')
+    })
+    .catch((e) => {
+      console.log('%c gestionEssence.js #128 || e : ', 'background:red;color:#fff;font-weight:bold;', e);
+    })
+    .finally(() => {
+      clearToasts()
+    })
   }
 }
 

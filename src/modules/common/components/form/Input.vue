@@ -1,5 +1,5 @@
 <template>
-<label class="field__label" :for="inputId">{{ label }}</label>
+  <label class="field__label" :for="inputId">{{ label }}</label>
 	<input
 		@change="handleChangeInput"
 		:id="inputId"

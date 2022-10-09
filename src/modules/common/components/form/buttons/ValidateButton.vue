@@ -1,10 +1,10 @@
 <template>
-  <i v-on:click="callback" class="icon bi bi-x-square"></i>
+  <i v-on:click="callback" class="icon bi bi-check-square"></i>
 </template>
 
 <script>
 export default {
-  name: 'ResetButton',
+  name: 'ValidateButton',
   methods: {
     callback() {
       this.$emit('callback')

@@ -4,7 +4,7 @@
 			<ReturnButton path="/" />
 			<ResetButton />
 			<div class="crud">
-				<AddButton />
+				<AddButton path="/gestion-essence/add-transaction" />
 				<RemoveButton />
 			</div>
 		</div>
@@ -28,7 +28,7 @@
 
 //* COMMON
 import ReturnButton from '@/modules/common/components/form/buttons/ReturnButton.vue';
-import ResetButton from '@/modules/common/components/form/buttons/ResetButton.vue';
+import ResetButton from '@/modules/common/components/form/buttons/RefreshButton.vue';
 import AddButton from '@/modules/common/components/form/buttons/AddButton.vue';
 import RemoveButton from '@/modules/common/components/form/buttons/RemoveButton.vue';
 import Separator from '@/modules/common/components/Separator.vue';

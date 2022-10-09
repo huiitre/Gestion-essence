@@ -12,7 +12,6 @@
 					inputId="username"
 					@onChangeValue="handleChangeInput"
 				/>
-				<span class="login__form__username-error hidden">Identifiant incorrect</span>
 			</div>
 			<div class="login__form__password">
 				<Input
@@ -24,7 +23,6 @@
 					inputId="password"
 					@onChangeValue="handleChangeInput"
 				/>
-				<span class="login__form__password-error hidden">Mot de passe incorrect</span>
 			</div>
 			<div class="login__form__submit">
 				<button type="submit" class="login__form__submit-button">Se connecter</button>
@@ -34,7 +32,7 @@
 </template>
 
 <script>
-import Input from '@/modules/common/components/Input.vue'
+import Input from '@/modules/common/components/form/Input.vue'
 
 export default {
 	name: 'Login',
