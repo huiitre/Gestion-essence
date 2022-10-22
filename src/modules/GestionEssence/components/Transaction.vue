@@ -1,6 +1,6 @@
 <template>
-  <div class="transaction" v-on:click="setIsOpen">
-    <span class="transaction__date">{{ transformDate }}</span> | 
+  <div v-bind:class="deleteModeSelected && 'delete-mode--selected'" class="transaction" v-on:click="deleteMode ? successCallback() : ''">
+    <span class="transaction__date">{{ item.t_date }}</span> | 
     <span class="transaction__montant">{{ item.t_montant }} €</span> | 
     <span class="transaction__conso">{{ item.t_conso }} L / 100</span>
   </div>
@@ -10,22 +10,34 @@
 
 export default {
   name: 'Transaction',
-  props: ['item'],
+  props: ['item', 'callback', 'deleteMode'],
   components: {
   },
+  mounted() {
+    this.deleteModeSelected = false
+  },
+  /* updated() {
+    this.deleteModeSelected = false
+  }, */
   computed: {
-    transformDate() {
+    /* transformDate() {
       const date = new Date(this.item.t_date)
       const newDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`
       return newDate
-    }
+    } */
   },
   methods: {
+    successCallback() {
+      this.callback(this.item.t_id)
+      this.deleteModeSelected = !this.deleteModeSelected
+    }
   },
   data() {
     return {
+      deleteModeSelected: false,
+      deleteModeComp: this.deleteMode
     }
-  }
+  },
 };
 </script>
 

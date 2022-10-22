@@ -8,7 +8,7 @@ export const successToast = (message) => {createToast(message, {
 		type: 'success',
 		transition: 'bounce',
     swipeClose: true,
-		timeout: 2000
+		timeout: 3000
 	});
 };
 export const errorToast = (message) => {createToast(message, {
@@ -18,7 +18,7 @@ export const errorToast = (message) => {createToast(message, {
 		type: 'danger',
 		transition: 'bounce',
     swipeClose: true,
-		timeout: 2000
+		timeout: 3000
 	});
 };
 export const warnToast = (message) => {createToast(message, {
@@ -28,7 +28,7 @@ export const warnToast = (message) => {createToast(message, {
 		type: 'warning',
 		transition: 'bounce',
     swipeClose: true,
-		timeout: 2000
+		timeout: 3000
 	});
 };
 export const infoToast = (message) => {createToast(message, {
@@ -38,7 +38,7 @@ export const infoToast = (message) => {createToast(message, {
 		type: 'info',
 		transition: 'bounce',
     swipeClose: true,
-		timeout: 2000
+		timeout: 3000
 	});
 };
 export const spinnerToast = (message) => {createToast(message, {

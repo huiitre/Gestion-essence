@@ -52,6 +52,10 @@ const router = createRouter({
 router.beforeEach((to, from) => {
 	window.scrollTo(0, 0);
 	
+	//todo TOUT englober dans un if qui va check en LS si on a un nom d'utilisateur et un mot de passe d'enregistré
+	//todo On tente la connexion avec ces identifiants
+	//todo si ça réussi, on est good, sinon on pense à vider le LS des identifiants périmés
+
 	//* si on est sur la page login, on vide le state.core.viewsHistory
 	// if (to.fullPath == '#/login' || to.fullPath == '/login')
 

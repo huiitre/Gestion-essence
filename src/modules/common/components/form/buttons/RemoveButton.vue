@@ -1,10 +1,16 @@
 <template>
-	<i class="icon bi bi bi-dash-square"></i>
+	<i v-on:click="executeCallback" class="icon bi bi bi-dash-square"></i>
 </template>
 
 <script>
 export default {
 	name: 'RemoveButton',
+	props: ['callback'],
+	methods: {
+		executeCallback() {
+			this.callback()
+		}
+	}
 };
 </script>
 

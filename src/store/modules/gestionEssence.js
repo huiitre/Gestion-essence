@@ -37,17 +37,14 @@ const getters = {
 //!##################################//
 const mutations = {
   setTransactionsList(s, data) {
-    if (data.currentPage == 1) {
+    if (data.currentPage == 1)
       s.transactionsList = data.result
-      s.currentPage = Number(data.currentPage)
-      s.allPages = data.allPages
-      s.allConso = data.allConso
-    } else {
+    else
       s.transactionsList = [...s.transactionsList, ...data.result]
-      s.currentPage = Number(data.currentPage)
-      s.allPages = data.allPages
-      s.allConso = data.allConso
-    }
+
+    s.currentPage = Number(data.currentPage)
+    s.allPages = data.allPages
+    s.allConso = data.allConso
   },
   setResetTransactionsList(s) {
     s.transactionsList = []
@@ -61,73 +58,102 @@ const mutations = {
 //!             ACTIONS              //
 //!##################################//
 const actions = {
+
+  /**
+   * Affiche la liste des transactions
+   * Gère la pagination également avec le payload.scroll et le state
+   * @param {object} store 
+   * @param {object} payload 
+   */
   allFuelTransactions(store, payload) {
-    //! erreur 401 je comprends pas pourquoi
-    /* client.get('/gestion-essence/list', { params: { page: store.state.currentPage } })
+    if (store.state.currentPage < store.state.allPages || store.state.allPages == '') {
+      //* on lance le spinner
+      spinnerToast('Chargement de la liste en cours ...')
+
+      //* on vérifie le payload
+      let scroll = false
+      if (payload !== undefined)
+        scroll = payload.scroll
+
+      //* si scroll vaut true && que la page courante est inférieur à toutes les pages
+      //* on incrémente de 1
+      if (scroll && store.state.currentPage < store.state.allPages)
+        store.state.currentPage = store.state.currentPage + 1
+
+      client.get('/gestion-essence/list', { params: { page: store.state.currentPage } })
       .then((r) =>  {
         console.log('response : ', r.data);
         store.commit('setTransactionsList', r.data)
       })
-      .catch((e) => {
-        console.log('error : ', e);
-      }) */
-  
-    if (store.state.currentPage < store.state.allPages || store.state.allPages == '') {
-      const client = axios.create({
-        baseURL: process.env.VUE_APP_ROOT_API,
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json'
-        }
-      });
-      spinnerToast('Chargement des données en cours ...')
-      //* si currentPage est inf au max de pages, on incrémente de 1, sinon on laisse la valeur par défaut
-      // store.state.currentPage < store.state.allPages ? store.state.currentPage = store.state.currentPage + 1 : store.state.currentPage;
-      let scroll = false;
-      if (payload !== undefined) {
-        scroll = payload.scroll;
-      }
-
-      if (scroll && store.state.currentPage < store.state.allPages) {
-        store.state.currentPage = store.state.currentPage + 1
-      }
-
-      client.defaults.headers.common.authorization = `Bearer ${localStorage.getItem('token')}`
-      client.get('/gestion-essence/list', { params: { page: store.state.currentPage } })
-        .then((r) => {
-          store.commit('setTransactionsList', r.data)
-        })
-        .catch((e) => {
-          console.log('error : ', e);
-          errorToast('Une erreur s\'est produite lors du chargement des données')
-        })
-        .finally(() => {
-          clearToasts()
-        })
+      .catch((e) => errorToast('Une erreur s\'est produite lors du chargement des données'))
+      .finally(() => clearToasts())
     }
   },
+
+  /**
+   * Reset la liste des transactions
+   * @param {object} store 
+   */
   resetTransactionsList(store) {
     store.commit('setResetTransactionsList')
     store.dispatch('allFuelTransactions')
   },
+
+  /**
+   * requête POST qui permet d'ajouter une transaction
+   * @param {object} store 
+   * @param {object} payload 
+   */
   addTransaction(store, payload) {
     
     spinnerToast('Ajout en cours ...')
 
-    const client = axios.create({
-      baseURL: process.env.VUE_APP_ROOT_API,
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      }
-    });
-    client.defaults.headers.common.authorization = `Bearer ${localStorage.getItem('token')}`
-    client.post('/gestion-essence/add')
+    client.post('/gestion-essence/add', payload)
     .then((r) => {
       successToast('L\'ajout a bien été effectué !')
     })
     .catch((e) => {
-      console.log('%c gestionEssence.js #128 || e : ', 'background:red;color:#fff;font-weight:bold;', e);
+      if (e.response.data.msg) {
+        //* on parcours le tableau des messages et on en affiche le contenu dans la popup
+        for (let val of e.response.data.msg)
+          errorToast(val)
+      } else {
+        errorToast('Une erreur s\'est produite lors du chargement des données')
+      }
+    })
+    .finally(() => {
+      clearToasts()
+    })
+  },
+
+  /**
+   * requête DELETE qui supprime des transactions
+   * @param {object} store 
+   * @param {object} payload 
+   */
+  deleteTransaction(store, payload) {
+    const list = payload.list
+    const callback = payload.callback
+
+    const data = {
+      list: list
+    }
+
+    spinnerToast('Suppression en cours ...')
+
+    client.delete('/gestion-essence/delete', { data })
+    .then((r) => {
+      console.log('%c gestionEssence.js #142 || res : ', 'background:red;color:#fff;font-weight:bold;', r);
+      successToast('La suppression a bien été effectué')
+      callback()
+    })
+    .catch((e) => {
+      if (e.response.data.msg) {
+        for (let val of e.response.data.msg)
+          errorToast(val)
+      } else {
+        errorToast('Une erreur s\'est produite lors de la suppression')
+      }
     })
     .finally(() => {
       clearToasts()

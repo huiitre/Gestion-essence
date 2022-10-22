@@ -3,6 +3,7 @@ import { errorToast, spinnerToast, successToast } from '@/modules/common/compone
 import { clearToasts } from 'mosha-vue-toastify';
 import router from '@/router';
 import client from '@/services/axiosInstance';
+import axios from 'axios';
 
 //!##################################//
 //!              STATE               //
@@ -65,8 +66,7 @@ const actions = {
         router.push('/')
       })
       .catch((e) => {
-        console.log('%c user.js #70 || error : ', 'background:red;color:#fff;font-weight:bold;', e);
-        if (e.response.data == undefined) {
+        if (e.response.data === undefined || e.response.data.status === 500) {
           errorToast('Une erreur est survenu, merci de réessayer ultérieurement');
         } else {
           errorToast(e.response.data.message);

@@ -1,13 +1,14 @@
 <template>
-  <i v-on:click="callback" class="icon bi bi-x-square"></i>
+  <i v-on:click="executeCallback" class="icon bi bi-x-square"></i>
 </template>
 
 <script>
 export default {
   name: 'ResetButton',
+  props: ['callback'],
   methods: {
-    callback() {
-      this.$emit('callback')
+    executeCallback() {
+      this.callback()
     }
   }
 };

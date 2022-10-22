@@ -5,7 +5,7 @@
 		:id="inputId"
 		:type="inputType"
 		v-model="value"
-    class="field__input"
+    class="field__input "
     :class="inputClass"
     :placeholder="inputPlaceHolder"
 	/>
