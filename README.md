@@ -43,5 +43,3 @@ ou
 yarn build
 cordova run android
 ```
-
-h1
