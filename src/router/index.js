@@ -35,6 +35,12 @@ const router = createRouter({
 			component: () => import('@/views/GestionEssence/GestionEssenceView.vue'),
 		},
 		{
+			path: '/config',
+			name: 'user-config',
+			meta: { requireAuth: true },
+			component: () => import('@/views/UserConfigView.vue'),
+		},
+		{
 			path: '/gestion-essence/add-transaction',
 			name: 'gestion-essence__add-transaction',
 			meta: { requireAuth: true },
@@ -97,7 +103,6 @@ router.beforeEach((to, from) => {
 		store.commit('User/setLoadingCheckUser', true)
 		client.get('/user/profile')
 			.then((response) => {
-				console.log('%c index.js #99 || res : ', 'background:red;color:#fff;font-weight:bold;', response);
 				store.commit('User/setUser', {
 					token: config.token,
 					username: response.data.email,
@@ -108,6 +113,7 @@ router.beforeEach((to, from) => {
 			.catch((e) => {
 				router.push('/login')
 				// localStorage.removeItem('token')
+				localStorage.removeItem('config')
 			})
 			.finally(() => {
 					store.commit('User/setLoadingCheckUser', false)

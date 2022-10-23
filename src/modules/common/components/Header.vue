@@ -1,12 +1,14 @@
 <template>
 	<header class="header">
-		<div class="header__options">
-			<!-- <router-link class="header__option__return">
-				<i class="header__option__return-icon bi bi-arrow-left-square"></i>
-			</router-link> -->
+		<div class="header__config">
+			<router-link class="link header__config-link" to="/config">
+				<i class="header__config-icon bi bi-pencil-square"></i>
+			</router-link>
 		</div>
 		<h1 class="header__title">
-			<span class="header__title-name">{{ getName }}</span>
+			<router-link class="link header__title-link" to="/">
+				<span class="header__title-name">{{ getName }}</span>
+			</router-link>
 		</h1>
 		<div v-on:click="logout" class="header__disconnect">
 			<i class="header__disconnect-icon bi bi-box-arrow-right"></i>
@@ -54,6 +56,10 @@ export default {
 	// top: 0;
 	background-color: $header-background;
 
+	& .link {
+		text-decoration: none;
+	}
+
 	&__title {
 		padding-left: 1rem;
 
@@ -72,13 +78,11 @@ export default {
 		}
 	}
 
-	&__options {
-		&__return {
-			padding-left: 0.5rem;
-			&-icon {
-				font-size: 2rem;
-				color: #fff;
-			}
+	&__config {
+		padding-left: 0.5rem;
+		&-icon {
+			font-size: 2rem;
+			color: #fff;
 		}
 	}
 }

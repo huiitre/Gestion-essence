@@ -3,7 +3,8 @@
 //!##################################//
 const state = {
   apiUrl: '',
-  protocol: ''
+  protocol: '',
+  version: process.env.VUE_APP_ROOT_VERSION
 }
 
 //!##################################//
@@ -15,6 +16,9 @@ const getters = {
   },
   getProtocol(s) {
     return s.protocol
+  },
+  getVersion(s) {
+    return s.version
   }
 }
 
