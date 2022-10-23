@@ -5,6 +5,8 @@ import router from '@/router';
 import client from '@/services/axiosInstance';
 import axios from 'axios';
 
+import core from '@/store/modules/core';
+
 //!##################################//
 //!              STATE               //
 //!##################################//
@@ -20,7 +22,7 @@ const state = {
 const mutations = {
 	logout() {
 		this.commit('User/setResetUser');
-    localStorage.removeItem('token')
+    localStorage.removeItem('config')
 	},
 
 	//* Setters
@@ -43,38 +45,45 @@ const mutations = {
 const actions = {
   //! Connexion utilisateur
   login(store, payload) {
-    //* On clear tous les autres toast et on affiche le toast loading
-    clearToasts();
-    spinnerToast('Connexion en cours ...');
 
-    client.post('/login_check', payload)
-      .then((res) => {
+    if (payload.username !== '' && payload.password !== '') {
+      //* On clear tous les autres toast et on affiche le toast loading
+      clearToasts();
+      spinnerToast('Connexion en cours ...');
 
-        //* On affiche le toast success
-        successToast('Vous êtes connecté !');
+      client.post('/login_check', payload)
+        .then((res) => {
 
-        //* Stockage du token en LS
-        const { token } = res.data;
-        localStorage.setItem('token', token);
+          //* On affiche le toast success
+          successToast('Vous êtes connecté !');
 
-        //* Stockage des informations de l'utilisateur dans le store
-        store.commit('setUser', {
-          token: res.data.token,
-          username: res.data.data.email,
-          name: res.data.data.name,
+          //* Stockage du token en LS
+          //* stockage de l'apiurl et du protocol en LS
+          const { token } = res.data;
+          const instance = { apiurl: core.state.apiUrl, protocol: core.state.protocol, token: token }
+          localStorage.setItem('config', JSON.stringify(instance))
+
+          //* Stockage des informations de l'utilisateur dans le store
+          store.commit('setUser', {
+            token: res.data.token,
+            username: res.data.data.email,
+            name: res.data.data.name,
+          })
+          router.push('/')
         })
-        router.push('/')
-      })
-      .catch((e) => {
-        if (e.response.data === undefined || e.response.data.status === 500) {
-          errorToast('Une erreur est survenu, merci de réessayer ultérieurement');
-        } else {
-          errorToast(e.response.data.message);
-        }
-      })
-      .finally(() => {
-        clearToasts();
-      });
+        .catch((e) => {
+          if (e.response.data) {
+            errorToast(e.response.data.msg)
+          } else {
+            errorToast('Une erreur s\'est produite')
+          }
+        })
+        .finally(() => {
+          clearToasts();
+        });
+    } else {
+      errorToast('Veuillez remplir tous les champs')
+    }
   },
 };
 

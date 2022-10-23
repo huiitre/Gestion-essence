@@ -2,7 +2,8 @@
 //!              STATE               //
 //!##################################//
 const state = {
-  apiUrl: 'http://localhost:5050/api'
+  apiUrl: '',
+  protocol: ''
 }
 
 //!##################################//
@@ -11,6 +12,9 @@ const state = {
 const getters = {
   getApiUrl(s) {
     return s.apiUrl
+  },
+  getProtocol(s) {
+    return s.protocol
   }
 }
 
@@ -18,6 +22,13 @@ const getters = {
 //!            MUTATIONS             //
 //!##################################//
 const mutations = {
+  //* Setters
+  setApiUrl(state, payload) {
+    state.apiUrl = payload
+  },
+  setProtocol(state, payload) {
+    state.protocol = payload
+  }
 }
 
 //!##################################//

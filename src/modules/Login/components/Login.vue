@@ -1,3 +1,47 @@
+<script>
+import Input from '@/modules/common/components/form/Input.vue'
+
+export default {
+	name: 'Login',
+	components: {
+		Input,
+	},
+	data() {
+		return {
+			credentials: {
+				username: '',
+				password: ''
+			},
+		}
+	},
+	computed: {
+		protocol: {
+			get() {
+				return this.$store.state.protocol
+			},
+			set(value) {
+				this.$store.commit('Core/setProtocol', value)
+			}
+		}
+	},
+	methods: {
+		handleChangeInput(data) {
+			this.credentials[data.name] = data.value
+		},
+		handleSubmit() {
+			//* on envoie les credentials utilisateur
+			this.$store.dispatch('User/login', this.credentials);
+		},
+		setApiUrl(data) {
+			this.$store.commit('Core/setApiUrl', data.value);
+		},
+		setProtocol(data) {
+			this.$store.commit('Core/setProtocol', data.value);
+		}
+	}
+};
+</script>
+
 <template>
 	<div class="login">
 		<!-- <h1 class="login__title">Gestion Essence</h1> -->
@@ -24,39 +68,30 @@
 					@onChangeValue="handleChangeInput"
 				/>
 			</div>
+			<div class="login__form__apiUrl">
+				<Input
+					name="apiUrl"
+					label="URL API"
+					inputClass=""
+					inputType="text"
+					inputPlaceHolder="Url de l'api"
+					inputId="apiUrl"
+					@onChangeValue="setApiUrl"
+				/>
+			</div>
+			<div class="login__form__protocol">
+				<input v-model="protocol" value="http" id="http" type="radio" name="protocol" />
+				<label for="http">HTTP</label>
+
+				<input v-model="protocol" value="https" id="https" type="radio" name="protocol" />
+				<label for="https">HTTPS</label>
+			</div>
 			<div class="login__form__submit">
 				<button type="submit" class="login__form__submit-button">Se connecter</button>
 			</div>
 		</form>
 	</div>
 </template>
-
-<script>
-import Input from '@/modules/common/components/form/Input.vue'
-
-export default {
-	name: 'Login',
-	components: {
-		Input,
-	},
-	data() {
-		return {
-			credentials: {
-				username: '',
-				password: ''
-			},
-		}
-	},
-	methods: {
-		handleChangeInput(data) {
-			this.credentials[data.name] = data.value
-		},
-		handleSubmit() {
-			this.$store.dispatch('User/login', this.credentials);
-		}
-	}
-};
-</script>
 
 <style lang="scss">
 //* composant login
@@ -86,9 +121,30 @@ export default {
 		flex-direction: column;
 		justify-content: space-evenly;
 
+		&__protocol {
+			& input[type="radio"] {
+				opacity: 0;
+    		position: fixed;
+    		width: 0;
+			}
+			& label {
+				background: linear-gradient(#365fcf, #1b3785);
+				box-shadow: 0px 2px 10px grey;
+				font-size: 2rem;
+				border: 2px solid #444;
+				text-align: center;
+				width: 100%;
+			}
+			& input[type="radio"]:checked + label {
+				background: linear-gradient(#1b3785, #365fcf);
+    		box-shadow: 0px 1px 5px grey;
+			}
+		}
+
 		//* bloc email & bloc password
 		&__username,
-		&__password {
+		&__password,
+		&__apiUrl {
 			font-size: 1.5rem;
 			display: flex;
 			flex-direction: column;
