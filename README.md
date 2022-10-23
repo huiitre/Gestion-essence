@@ -60,3 +60,9 @@ Avant chaque passage de version, il faut faire deux choses :
   - Bouton de rechargement dynamique
   - Rechargement dynamique en scrollant au plus bas de la fenêtre
 
+### 1.1 date de déploiement à venir
+- Ajout de la page **Configuration**
+  - Affichage de la version courante de l'app
+  - Affichage du nom de l'utilisateur
+  - Affichage de l'url de l'api utilisé pendant la session
+- Choix de l'url api à utiliser lors de la connexion, ainsi que du protocol HTTP à utiliser

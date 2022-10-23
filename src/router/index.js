@@ -10,6 +10,7 @@ import HomeView from '@/views/HomeView.vue'
 import Header from '@/modules/common/components/Header.vue'
 
 const { User } = store.state;
+const { Core } = store.state
 
 //? createWebHashHistory est obligatoire car android ne sait pas gérer la redirection d'url
 const router = createRouter({
@@ -32,6 +33,12 @@ const router = createRouter({
 			name: 'gestion-essence',
 			meta: { requireAuth: true },
 			component: () => import('@/views/GestionEssence/GestionEssenceView.vue'),
+		},
+		{
+			path: '/config',
+			name: 'user-config',
+			meta: { requireAuth: true },
+			component: () => import('@/views/UserConfigView.vue'),
 		},
 		{
 			path: '/gestion-essence/add-transaction',
@@ -68,26 +75,36 @@ router.beforeEach((to, from) => {
 	//* Si on est connecté, on ne retourne pas sur la page "login"
 	//? pas faire attention au signe #, c'est pour la version android
 	if ((to.fullPath == '#/login' || to.fullPath == '/login') && User.isLogged) {
+		console.log('%c index.js #72 || ici', 'background:red;color:#fff;font-weight:bold;');
 		return {
 			path: from.fullPath || '/',
 		};
 	}
 
+	//* on récupère la config utilisateur
+	const config = JSON.parse(localStorage.getItem('config'))
+
 	//* Si on est pas connecté et qu'on a pas de LS token, on reste sur la page "login"
-	if (to.meta.requireAuth && !localStorage.getItem('token')) {
+	if (to.meta.requireAuth && !config) {
 		return {
 			path: '/login',
 		};
 	}
 
+
 	//* Si on est toujours pas connecté MAIS qu'on a un token en LS
-	if (!User.isLogged && localStorage.getItem('token')) {
+	if (!User.isLogged && config) {
+
+		//* on renseigne dans le store l'apiurl et le protocol
+		store.commit('Core/setApiUrl', config.apiurl)
+		store.commit('Core/setProtocol', config.protocol)
+
 		//* On check avec la route profile qui va juste nous renvoyer les infos de l'utilisateur si le token est valide
 		store.commit('User/setLoadingCheckUser', true)
 		client.get('/user/profile')
 			.then((response) => {
 				store.commit('User/setUser', {
-					token: localStorage.getItem('token'),
+					token: config.token,
 					username: response.data.email,
 					name: response.data.name,
 				})
@@ -95,7 +112,8 @@ router.beforeEach((to, from) => {
 			})
 			.catch((e) => {
 				router.push('/login')
-				localStorage.removeItem('token')
+				// localStorage.removeItem('token')
+				localStorage.removeItem('config')
 			})
 			.finally(() => {
 					store.commit('User/setLoadingCheckUser', false)

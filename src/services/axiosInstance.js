@@ -1,7 +1,7 @@
 import axios from "axios";
+import core from '@/store/modules/core'
 
 const client = axios.create({
-  baseURL: process.env.VUE_APP_ROOT_API,
   headers: {
     'Content-Type': 'application/json',
   }
@@ -12,10 +12,16 @@ console.log('%c axiosInstance.js #8 || token instance : ', 'background:red;color
 if (token) {
   client.defaults.headers.common['authorization'] = `Bearer ${token}`
 } */
-
 client.interceptors.request.use((config) => {
-  const token = localStorage.getItem('token');
-  config.headers.authorization = token ? `Bearer ${token}` : '';
+  const json = localStorage.getItem('config')
+  if (json) {
+    const conf = JSON.parse(json);
+    config.headers.authorization = `Bearer ${conf.token}`;
+  } else {
+    config.headers.authorization = ''
+  }
+  
+  config.baseURL = core.state.protocol + '://' + core.state.apiUrl + '/api'
   return config
 })
 
