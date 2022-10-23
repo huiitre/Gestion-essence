@@ -1,7 +1,8 @@
 import axios from "axios";
+import core from '@/store/modules/core'
 
 const client = axios.create({
-  baseURL: process.env.VUE_APP_ROOT_API,
+  baseURL: core.state.apiUrl,
   headers: {
     'Content-Type': 'application/json',
   }
