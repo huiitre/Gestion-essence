@@ -146,6 +146,10 @@ export default {
 		& .list.delete-mode .transaction.delete-mode--selected {
 			background-color: $delete-mode--selected;
 		}
+
+		& .list {
+			width: 100%;
+		}
 	}
 }
 </style>

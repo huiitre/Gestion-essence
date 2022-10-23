@@ -51,7 +51,7 @@ import useFetchFuel from '@/modules/GestionEssence/Fuel/hooks/useFetchFuel';
 import ValidateButton from '@/modules/common/components/form/buttons/ValidateButton.vue';
 import ReturnButton from '@/modules/common/components/form/buttons/ReturnButton.vue';
 import ResetButton from '@/modules/common/components/form/buttons/ResetButton.vue';
-import Input from '@/modules/common/components/form/Input.vue'
+import Input from '@/modules/common/components/form/fields/Input.vue'
 import Separator from '@/modules/common/components/Separator.vue';
 
 export default {

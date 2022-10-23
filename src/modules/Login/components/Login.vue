@@ -1,5 +1,5 @@
 <script>
-import Input from '@/modules/common/components/form/Input.vue'
+import Input from '@/modules/common/components/form/fields/Input.vue'
 
 export default {
 	name: 'Login',

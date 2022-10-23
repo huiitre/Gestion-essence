@@ -1,24 +1,14 @@
-<template>
-  <div v-bind:class="deleteModeSelected && 'delete-mode--selected'" class="transaction" v-on:click="deleteMode ? successCallback() : ''">
-    <span class="transaction__date">{{ item.t_date }}</span> | 
-    <span class="transaction__montant">{{ item.t_montant }} €</span> | 
-    <span class="transaction__conso">{{ item.t_conso }} L / 100</span>
-  </div>
-</template>
-
 <script>
-
+import Popup from '@/modules/common/components/Popup.vue';
 export default {
   name: 'Transaction',
   props: ['item', 'callback', 'deleteMode'],
   components: {
+    Popup
   },
   mounted() {
     this.deleteModeSelected = false
   },
-  /* updated() {
-    this.deleteModeSelected = false
-  }, */
   computed: {
     /* transformDate() {
       const date = new Date(this.item.t_date)
@@ -35,11 +25,21 @@ export default {
   data() {
     return {
       deleteModeSelected: false,
-      deleteModeComp: this.deleteMode
+      deleteModeComp: this.deleteMode,
+      popup: true
     }
   },
 };
 </script>
+
+<template>
+  <Popup v-if="popup" />
+  <div v-bind:class="deleteModeSelected && 'delete-mode--selected'" class="transaction" v-on:click="deleteMode ? successCallback() : ''">
+    <span class="transaction__date">{{ item.t_date }}</span> | 
+    <span class="transaction__montant">{{ item.t_montant }} €</span> | 
+    <span class="transaction__conso">{{ item.t_conso }} L</span>
+  </div>
+</template>
 
 <style lang="scss" scoped>
 .transaction {
