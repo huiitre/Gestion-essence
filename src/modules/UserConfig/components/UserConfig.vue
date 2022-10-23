@@ -1,9 +1,6 @@
 <script>
 export default {
   name: 'UserConfig',
-  created() {
-    console.log('%c UserConfig.vue #5 || env : ', 'background:red;color:#fff;font-weight:bold;', process.env);
-  },
   computed: {
     getName() {
       return this.$store.getters['User/getName']

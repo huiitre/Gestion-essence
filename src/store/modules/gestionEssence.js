@@ -82,7 +82,6 @@ const actions = {
 
       client.get('/gestion-essence/list', { params: { page: store.state.currentPage } })
       .then((r) =>  {
-        console.log('response : ', r.data);
         store.commit('setTransactionsList', r.data)
       })
       .catch((e) => errorToast('Une erreur s\'est produite lors du chargement des données'))
