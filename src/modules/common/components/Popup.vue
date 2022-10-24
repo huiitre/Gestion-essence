@@ -1,6 +1,7 @@
 <script>
 export default {
   name: 'Popup',
+  props: ['handleClosePopup', 'item']
 };
 </script>
 
@@ -9,9 +10,16 @@ export default {
     <div class="mask"></div>
     <div class="container auto">
       <div class="message">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam voluptate dolore illo tempore libero repellat neque inventore fugit qui, sequi, rerum temporibus laborum. Incidunt asperiores et itaque, suscipit eveniet distinctio voluptatum aspernatur officiis laborum nemo reiciendis quos voluptatibus molestias iste praesentium eum in 
+        Nom : {{ item.t_location }}<br />
+        <br />Montant : {{ item.t_montant }} €<br />
+        <br />Prix au litre : {{ item.t_price_liter }} €<br />
+        <br />Moy conso : {{ item.t_conso }}<br />
+        <br />Km parcouru : {{ item.t_km_travelled }} km<br />
+        <br />Date : {{ item.t_date }}<br />
+        <br />Litres ajoutés : {{ item.t_tank }} L<br />
+        <br />Réservoir max VL : {{ item.v_reservoir }}
       </div>
-      <span href="#" class="close">&times;</span>
+      <span v-on:click="handleClosePopup()" href="#" class="close">&times;</span>
     </div>
   </div>
 </template>

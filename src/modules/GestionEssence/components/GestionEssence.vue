@@ -102,9 +102,9 @@ export default {
 			</div>
 			<Separator />
 			<!-- <div class="date">Juin 2022</div> -->
-			<div class="list" v-bind:class="[deleteMode && 'delete-mode']" v-if="getTransactions">
+			<div v-bind:class="['list', deleteMode && 'delete-mode']" v-if="getTransactions">
 				<Transaction
-					:callback="selectTransactionsForDelete"
+					:delete="selectTransactionsForDelete"
 					:deleteModeSelected="deleteList.includes(Number(val.id)) ? true : false"
 					:deleteMode="deleteMode"
 					v-for="val of getTransactions"
@@ -138,13 +138,6 @@ export default {
 			font-weight: bold;
 			margin-bottom: 1.5rem;
 			text-align: center;
-		}
-
-		& .list.delete-mode .transaction {
-			background-color: $delete-mode;
-		}
-		& .list.delete-mode .transaction.delete-mode--selected {
-			background-color: $delete-mode--selected;
 		}
 
 		& .list {
